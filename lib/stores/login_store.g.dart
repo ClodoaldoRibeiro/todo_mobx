@@ -30,6 +30,13 @@ mixin _$LoginStore on _LoginStore, Store {
       (_$isFormValidComputed ??= Computed<bool>(() => super.isFormValid,
               name: '_LoginStore.isFormValid'))
           .value;
+  Computed<bool> _$isPasswordVisibilityComputed;
+
+  @override
+  bool get isPasswordVisibility => (_$isPasswordVisibilityComputed ??=
+          Computed<bool>(() => super.isPasswordVisibility,
+              name: '_LoginStore.isPasswordVisibility'))
+      .value;
 
   final _$emailAtom = Atom(name: '_LoginStore.email');
 
@@ -61,6 +68,21 @@ mixin _$LoginStore on _LoginStore, Store {
     });
   }
 
+  final _$passwordVisibilityAtom = Atom(name: '_LoginStore.passwordVisibility');
+
+  @override
+  bool get passwordVisibility {
+    _$passwordVisibilityAtom.reportRead();
+    return super.passwordVisibility;
+  }
+
+  @override
+  set passwordVisibility(bool value) {
+    _$passwordVisibilityAtom.reportWrite(value, super.passwordVisibility, () {
+      super.passwordVisibility = value;
+    });
+  }
+
   final _$_LoginStoreActionController = ActionController(name: '_LoginStore');
 
   @override
@@ -86,13 +108,26 @@ mixin _$LoginStore on _LoginStore, Store {
   }
 
   @override
+  void togglePasswordVisibility() {
+    final _$actionInfo = _$_LoginStoreActionController.startAction(
+        name: '_LoginStore.togglePasswordVisibility');
+    try {
+      return super.togglePasswordVisibility();
+    } finally {
+      _$_LoginStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 email: ${email},
 password: ${password},
+passwordVisibility: ${passwordVisibility},
 isEmailValid: ${isEmailValid},
 isPasswordValid: ${isPasswordValid},
-isFormValid: ${isFormValid}
+isFormValid: ${isFormValid},
+isPasswordVisibility: ${isPasswordVisibility}
     ''';
   }
 }

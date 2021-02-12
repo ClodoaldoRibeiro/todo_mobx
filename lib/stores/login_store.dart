@@ -17,6 +17,9 @@ abstract class _LoginStore with Store {
   @observable
   String password = "";
 
+  @observable
+  bool passwordVisibility = false;
+
   @action
   void setEmail(String value) {
     email = value;
@@ -42,5 +45,15 @@ abstract class _LoginStore with Store {
   @computed
   bool get isFormValid {
     return isEmailValid && isPasswordValid;
+  }
+
+  @computed
+  bool get isPasswordVisibility {
+    return passwordVisibility;
+  }
+
+  @action
+  void togglePasswordVisibility() {
+    passwordVisibility = !passwordVisibility;
   }
 }
