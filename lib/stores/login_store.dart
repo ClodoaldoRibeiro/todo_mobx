@@ -5,7 +5,6 @@ part 'login_store.g.dart';
 class LoginStore = _LoginStore with _$LoginStore;
 
 abstract class _LoginStore with Store {
-
   @observable
   String _email = "";
 
@@ -65,6 +64,9 @@ abstract class _LoginStore with Store {
 
     _loading = false;
     _loggedIn = true;
+
+    _email = '';
+    _password = '';
   }
 
   @action
@@ -76,4 +78,19 @@ abstract class _LoginStore with Store {
   Function get loginPressed {
     return (isEmailValid && isPasswordValid && !isLoading) ? login : null;
   }
+
+  @action
+  void logout() {
+    _loggedIn = false;
+  }
+}
+
+import 'package:mobx/mobx.dart';
+
+part 'login_store.g.dart';
+
+class LoginStore = _LoginStore with _$LoginStore;
+
+abstract class _LoginStore with Store {
+
 }

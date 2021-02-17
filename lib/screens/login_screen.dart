@@ -21,17 +21,13 @@ class _LoginScreenState extends State<LoginScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    // _loginStore = Provider.of<LoginStore>(context);
+    _loginStore = Provider.of<LoginStore>(context);
 
-    disposer = reaction(
-            (_) => _loginStore.isLoggedIn,
-            (loggedIn){
-          if(loggedIn)
-            Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (_)=>ListScreen())
-            );
-        }
-    );
+    disposer = reaction((_) => _loginStore.isLoggedIn, (loggedIn) {
+      if (loggedIn)
+        Navigator.of(context)
+            .pushReplacement(MaterialPageRoute(builder: (_) => ListScreen()));
+    });
   }
 
   @override
