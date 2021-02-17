@@ -15,21 +15,24 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   LoginStore _loginStore = LoginStore();
-
   ReactionDisposer disposer;
-  //
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //
-  //   _loginStore = Provider.of<LoginStore>(context);
-  //
-  //   disposer = reaction((_) => _loginStore.isLoggedIn, (loggedIn) {
-  //     if (loggedIn)
-  //       Navigator.of(context)
-  //           .pushReplacement(MaterialPageRoute(builder: (_) => ListScreen()));
-  //   });
-  // }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    // _loginStore = Provider.of<LoginStore>(context);
+
+    disposer = reaction(
+            (_) => _loginStore.isLoggedIn,
+            (loggedIn){
+          if(loggedIn)
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (_)=>ListScreen())
+            );
+        }
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
